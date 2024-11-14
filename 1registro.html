@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <style>
+        body {
+            background-color: #01322E;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'%3E%3Cpolygon fill='%2303887d' points='957 450 539 900 1396 900'/%3E%3Cpolygon fill='%23012421' points='957 450 872.9 900 1396 900'/%3E%3Cpolygon fill='%23038378' points='-60 900 398 662 816 900'/%3E%3Cpolygon fill='%23012623' points='337 900 398 662 816 900'/%3E%3Cpolygon fill='%23037d73' points='1203 546 1552 900 876 900'/%3E%3Cpolygon fill='%23012825' points='1203 546 1552 900 1162 900'/%3E%3Cpolygon fill='%2302786e' points='641 695 886 900 367 900'/%3E%3Cpolygon fill='%23012926' points='587 900 641 695 886 900'/%3E%3Cpolygon fill='%2302736a' points='1710 900 1401 632 1096 900'/%3E%3Cpolygon fill='%23012b28' points='1710 900 1401 632 1365 900'/%3E%3Cpolygon fill='%23026e65' points='1210 900 971 687 725 900'/%3E%3Cpolygon fill='%23012d2a' points='943 900 1210 900 971 687'/%3E%3C/svg%3E");
+            background-attachment: fixed;
+            background-size: cover;
+
+        }
+
+        .form-container {
+            width: 350px;
+            background-color: #fff;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            border-radius: 10px;
+            box-sizing: border-box;
+            padding: 20px 30px;
+            margin: auto;
+            margin-top: 100px;
+        }
+
+        .title {
+            text-align: center;
+            font-family: "Lucida Sans", sans-serif;
+            margin: 10px 0 30px 0;
+            font-size: 28px;
+            font-weight: 800;
+        }
+
+        .form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .input {
+            border-radius: 20px;
+            border: 1px solid #c0c0c0;
+            outline: 0;
+            box-sizing: border-box;
+            padding: 12px 15px;
+        }
+
+        .form-btn {
+    padding: 10px 15px;
+    border-radius: 20px;
+    border: 0;
+    background: #273848;
+    color: rgb(253 244 244);
+    cursor: pointer;
+}
+
+        .login-label {
+            margin: 0;
+            font-size: 10px;
+            color: #747474;
+            text-align: center;
+        }
+
+        .login-link {
+            text-decoration: underline;
+            color: #014842f8;
+            cursor: pointer;
+            font-weight: 800;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form-container">
+        <p class="title">Registrar Novo Usuário</p>
+        <form class="form" action="/registro" method="POST">
+            <label for="usuario">Usuário:</label>
+            <input type="text" class="input" name="usuario" placeholder="Usuário" required>
+            <label for="senha">Senha:</label>
+            <input type="password" class="input" name="senha" placeholder="Senha" required>
+            <button type="submit" class="form-btn">Registrar</button>
+        </form>
+        <p class="login-label">
+            Já possui uma conta? <span class="login-link" onclick="window.location.href='/login'">Faça login</span>
+            <p class="page-link">
+                <span class="sign-up-link" onclick="window.location.href='/index.html'">Home</span>
+                  </p>
+        </p>
+    </div>
+</body>
+
+</html>

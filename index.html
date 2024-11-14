@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bem Estar e Saúde</title>
+    <link rel="icon" href="images/bemestaricon.icon" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+        integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .form-container {
+            width: 350px;
+            height: auto;
+            background-color: #fff;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            border-radius: 10px;
+            box-sizing: border-box;
+            padding: 20px 30px;
+            margin: auto;
+            margin-top: 100px;
+        }
+
+        .title {
+            text-align: center;
+            font-family: "Lucida Sans", sans-serif;
+            margin: 10px 0 30px 0;
+            font-size: 28px;
+            font-weight: 800;
+        }
+
+        .form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .input {
+            border-radius: 20px;
+            border: 1px solid #c0c0c0;
+            outline: 0;
+            box-sizing: border-box;
+            padding: 12px 15px;
+        }
+
+        .form-btn {
+            padding: 10px 15px;
+            border-radius: 20px;
+            border: 0;
+            background: #273848;
+            color: rgb(255, 255, 255);
+            cursor: pointer;
+        }
+
+        .sign-up-label {
+            margin: 0;
+            font-size: 10px;
+            color: #747474;
+        }
+
+        .sign-up-link {
+            text-decoration: underline;
+            color: #273848;
+            cursor: pointer;
+            font-weight: 800;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .toggle {
+            background-color: #fff;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+            box-shadow: 0 0 50px 20px rgba(0, 0, 0, .1);
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header bg-blue">
+        <nav class="navbar bg-blue">
+            <div class="container flex">
+                <a href="index.html" class="navbar-brand">
+                    <img src="images/logo" alt="site logo">
+                </a>
+                <button type="button" class="navbar-show-btn">
+                    <img src="images/ham-menu-icon.png">
+                </button>
+                <div class="navbar-collapse bg-white">
+                    <button type="button" class="navbar-hide-btn">
+                        <img src="images/close-icon.png">
+                    </button>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">Sobre</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">Serviço</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" id="openLoginModal">Faça Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" id="openRegisterModal">Cadastre-se</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="header-inner text-white text-center">
+            <div class="container grid">
+                <div class="header-inner-left">
+                    <h1>Novas oportunidades de Trabalho e Renda<br> a <span>ARTELIE</span></h1>
+                    <p class="lead">Um serviço online onde pequenos produtores, artesãos que consigam criar suas lojas
+                        virtuais.</p>
+                    <div class="btn-group">
+                        <a href="#" class="btn btn-white">Saber mais</a>
+                        <a href="#" class="btn btn-light-blue" id="openLoginModal">Sign In</a>
+                    </div>
+                </div>
+                <div class="header-inner-right">
+                    <img src="images/bemestar">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div id="loginModal" class="modal">
+        <div class="form-container">
+            <span class="close" id="closeLoginModal">&times;</span>
+            <p class="title">Bem-vindo de volta</p>
+            <form class="form" action="/login" method="POST">
+                <label for="usuario">Usuário:</label>
+                <input type="text" class="input" name="usuario" placeholder="Usuário" required>
+                <label for="senha">Senha:</label>
+                <input type="password" class="input" name="senha" placeholder="Senha" required>
+                <button type="submit" class="form-btn">Entrar</button>
+            </form>
+            <p class="sign-up-label">
+                Não possui uma conta? <span class="sign-up-link" id="openRegisterModal">Registre-se</span>
+            </p>
+            <p class="page-link">
+                <span class="page-link-label" onclick="window.location.href='/recuperar-senha'">Esqueceu a senha?</span>
+            </p>
+        </div>
+    </div>
+
+    <div id="registerModal" class="modal">
+        <div class="form-container">
+            <span class="close" id="closeRegisterModal">&times;</span>
+            <p class="title">Registrar Novo Usuário</p>
+            <form class="form" action="/registro" method="POST">
+                <label for="usuario">Usuário:</label>
+                <input type="text" class="input" name="usuario" placeholder="Usuário" required>
+                <label for="senha">Senha:</label>
+                <input type="password" class="input" name="senha" placeholder="Senha" required>
+                <button type="submit" class="form-btn">Registrar</button>
+            </form>
+            <p class="sign-up-label">
+                Já possui uma conta? <span class="sign-up-link" id="openLoginModal">Faça login</span>
+            </p>
+        </div>
+    </div>
+    </label>
+
+
+    <section id="doc-panel" class="doc-panel py">
+        <div class="container">
+            <div class="section-head">
+                <h2>Nosso Painel</h2>
+            </div>
+
+            <div class="doc-panel-inner grid">
+                <!-- Perfil 1 -->
+                <div class="doc-panel-item">
+                    <div class="img flex">
+                        <img src="images/fabricio.png" alt="doctor image">
+                        <div class="info text-center bg-blue text-white flex">
+                            <p class="lead">Fabricio Mendoza</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Perfil 2 -->
+                <div class="doc-panel-item">
+                    <div class="img flex">
+                        <img src="images/Rafael.jpg" alt="doctor image">
+                        <div class="info text-center bg-blue text-white flex">
+                            <p class="lead">Rafael Yuji Ikeda</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Perfil 3 -->
+                <div class="doc-panel-item">
+                    <div class="img flex">
+                        <img src="images/teste.png" alt="doctor image">
+                        <div class="info text-center bg-blue text-white flex">
+                            <p class="lead">Eloah Martinez Garre</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Perfil 4 -->
+                <div class="doc-panel-item">
+                    <div class="img flex">
+                        <img src="images/teste.png" alt="doctor image">
+                        <div class="info text-center bg-blue text-white flex">
+                            <p class="lead">Nicole Osaki Graciano</p>
+                        </div>
+                    </div>
+                </div>
+
+    </section>
+
+
+    <section id="posts" class="posts py">
+        <div class="container">
+            <div class="section-head">
+                <h2>Última postagem</h2>
+            </div>
+            <div class="posts-inner grid">
+                <article class="post-item bg-white">
+                    <div class="content">
+                        <h4>Navegação muito fácil</h4>
+                        <p class="text text-sm">Ótima plataforma para iniciantes no
+                            e-commerce, fácil
+                            de usar, com boa personalização e suporte excelente. Ideal para quem quer criar uma loja
+                            online
+                            rapidamente.</p>
+                        <p class="text text-sm">★★★★★</p>
+                        <div class="info flex">
+                            <small class="text text-sm"><i class="fas fa-clock"></i> Fevereiro 09, 2023</small>
+                            <small class="text text-sm"><i class="fas fa-comment"></i> 3 comentários</small>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="post-item bg-white">
+                    <div class="content">
+                        <h4>Site ótimo com muito potencial.</h4>
+                        <p class="text text-sm">A plataforma oferece bons recursos e flexibilidade na personalização,
+                            mas a gestão de inventário poderia ser mais intuitiva. A integração com redes sociais foi
+                            confusa no início, mas foi resolvida com o suporte técnico. </p>
+
+                        <p class="text text-sm">★★★★☆</p>
+                        <div class="info flex">
+                            <small class="text text-sm"><i class="fas fa-clock"></i> Abril 29, 2024</small>
+                            <small class="text text-sm"><i class="fas fa-comment"></i> 2 comentários</small>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="post-item bg-white">
+                    <div class="content">
+                        <h4>Perfeita para criar lojas de produtos artesanais!</h4>
+                        <p class="text text-sm">Passei muito tempo procurando um lugar para vender meus artesanatos mas
+                            o artelie me surpreendeu! Plataforma muito fácil de usar, com ótimos templates e
+                            personalização, a integração de pagamento é simples e o suporte é rápido e eficiente. Ideal
+                            para quem quer
+                            criar uma loja online com facilidade.</p>
+
+                        <p class="text text-sm">★★★★★</p>
+                        <div class="info flex">
+                            <small class="text text-sm"><i class="fas fa-clock"></i> Novembro 16, 2024</small>
+                            <small class="text text-sm"><i class="fas fa-comment"></i> 9 comentários</small>
+                        </div>
+                    </div>
+                </article>
+                <style>
+                    .nav-link {
+                        color: rgb(253, 253, 253);
+                        text-decoration: none;
+                    }
+                </style>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="contact" class="contact py">
+        <div class="container grid">
+            <div class="contact-left">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.5258285164085!2d-46.63521908469324!3d-23.57076828468453!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce57976e34df45%3A0x67b05dcb2a0d6f1c!2sFIAP%20-%20Avenida%20Lins%20de%20Vasconcelos!5e0!3m2!1sen!2sbr!4v1636264848776!5m2!1sen!2sbr"
+                    width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+            <div class="contact-right text-white text-center bg-blue">
+                <div class="contact-head">
+                    <h3 class="lead">Contate-nos</h3>
+                    <p class="text text-md">Envie sua mensagem aqui:</p>
+                </div>
+                <form>
+                    <div class="form-element">
+                        <input type="text" class="form-control" placeholder="Your name">
+                    </div>
+                    <div class="form-element">
+                        <input type="email" class="form-control" placeholder="Your email">
+                    </div>
+                    <div class="form-element">
+                        <textarea rows="5" placeholder="Your Message" class="form-control"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-white btn-submit">
+                        <i class="fas fa-arrow-right"></i> Enviar mensagem
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+    </main>
+
+    <footer id="footer" class="footer text-center">
+        <div class="container">
+            <div class="footer-inner text-white py grid">
+                <div class="footer-item">
+                    <h3 class="footer-head">Sobre Nós</h3>
+                    <div class="icon">
+                        <img src="images/bcorp.png">
+                    </div>
+                    <p class="text text-md">Nosso projeto inicial seria mehorar oportunidades de trabalho e renda para
+                        pessoas da região!</p>
+                    <address>
+                        Empresa BCorp<br>
+                        Av. Lins de Vasconcelos<br>
+                        Aclimação<br>
+                        Brasil
+                    </address>
+                </div>
+
+
+
+                <div class="footer-item">
+                    <h3 class="footer-head">Links Rápidos</h3>
+                    <ul>
+                        <li><a href="#" class="text-white">Nossos Serviços</a></li>
+                        <li><a href="#" class="text-white">Política de Privacidade</a></li>
+                        <li><a href="#" class="text-white">Agendamento de Contratação</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-item">
+                    <p class="text text-md">Horários de Atendimento Online como Presencialmente:</p>
+                    <ul class="appointment-info">
+                        <li>8:00 AM - 11:00 AM</li>
+                        <li>2:00 PM - 05:00 PM</li>
+                        <li>8:00 PM - 11:00 PM</li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span>ArteLie@support.com</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <span>(11) 6626-1620</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+
+            <div class="footer-links">
+                <ul class="flex">
+                    <li><a href="#" class="text-white flex"> <i class="fab fa-instagram"></i></a></li>
+                    <li><a href="#" class="text-white flex"> <i class="fab fa-youtube"></i></a></li>
+                    <li><a href="#" class="text-white flex"> <i class="fab fa-facebook-f"></i></a></li>
+                    <li><a href="#" class="text-white flex"> <i class="fab fa-whatsapp"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+    <script src="server.js"></script>
+    <script src="client.js"></script>
+</body>
+
+</html>
+
+<script>
+    const loginModal = document.getElementById('loginModal');
+    const registerModal = document.getElementById('registerModal');
+    const openLoginModal = document.getElementById('openLoginModal');
+    const openRegisterModal = document.getElementById('openRegisterModal');
+    const closeLoginModal = document.getElementById('closeLoginModal');
+    const closeRegisterModal = document.getElementById('closeRegisterModal');
+
+    openLoginModal.onclick = function () {
+        loginModal.style.display = "block";
+        registerModal.style.display = "none";
+    }
+
+    openRegisterModal.onclick = function () {
+        registerModal.style.display = "block";
+        loginModal.style.display = "none";
+    }
+
+    closeLoginModal.onclick = function () {
+        loginModal.style.display = "none";
+    }
+
+    closeRegisterModal.onclick = function () {
+        registerModal.style.display = "none";
+    }
+
+    window.onclick = function (event) {
+        if (event.target == loginModal || event.target == registerModal) {
+            loginModal.style.display = "none";
+            registerModal.style.display = "none";
+        }
+    }
+</script>
+</body>
+
+</html>
